@@ -12,13 +12,14 @@ import Command from "../../base/classes/Command";
  */
 export default class Ready extends Event {
     /**
+     * @constructor
      * Creates an instance of the Ready event.
      * @param {CustomClient} client - The custom client instance.
      */
     constructor(client: CustomClient) {
         super(client, {
             name: Events.ClientReady,
-            description: "Ready Event",
+            description: "Gets triggered when the bot is ready.",
             once: true,
         });
     }

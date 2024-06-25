@@ -7,9 +7,19 @@ import {
 } from "discord.js";
 import MusicQueueManager from "../../utilities/MusicQueueManager";
 
-
+/**
+ * Skip Command class to handle the skipping of the current song in the queue.
+ * @extends Command
+ * @author Stefan Cucoranu <elpideus@gmail.com>
+ * @version 1.0
+ */
 export default class Skip extends Command {
 
+    /**
+     * @constructor
+     * Constructs the Skip command.
+     * @param {CustomClient} client - The custom client instance.
+     */
     constructor(client: CustomClient) {
         super(client, {
             client: client,
@@ -24,7 +34,12 @@ export default class Skip extends Command {
         });
     }
 
-    async Execute(interaction: ChatInputCommandInteraction) {
+    /**
+     * Executes the Skip command.
+     * @param {ChatInputCommandInteraction} interaction - The interaction that triggered the command.
+     * @returns {Promise<void>}
+     */
+    async Execute(interaction: ChatInputCommandInteraction): Promise<void> {
         const guild = interaction.guild!;
         await interaction.deferReply();
         await interaction.deleteReply();

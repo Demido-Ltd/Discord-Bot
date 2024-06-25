@@ -1,14 +1,25 @@
 import Event from "../../base/classes/Event";
 import CustomClient from "../../base/classes/CustomClient";
-import {ButtonInteraction, ChatInputCommandInteraction, EmbedBuilder, Events} from "discord.js";
+import {ButtonInteraction, Events} from "discord.js";
 import EmbedMessagesArchive from "../../utilities/EmbedMessagesArchive";
 
+/**
+ * Event that gets triggered whenever a button gets clicked.
+ * @extends Event
+ * @author Stefan Cucoranu <elpideus@gmail.com>
+ * @version 1.0
+ */
 export default class ButtonHandler extends Event {
 
+    /**
+     * @constructor
+     * Initializes the {@link ButtonHandler} class.
+     * @param {CustomClient} client The bot client
+     */
     constructor(client: CustomClient) {
         super(client, {
             name: Events.InteractionCreate,
-            description: "Button Handler Event",
+            description: "Handles button interactions.",
             once: false,
         });
     }

@@ -17,6 +17,7 @@ import ButtonsArchive from "../../utilities/ButtonsArchive";
 export default class Resume extends Command {
 
     /**
+     * @constructor
      * Creates an instance of the Resume command.
      * @param {CustomClient} client - The custom client instance.
      */

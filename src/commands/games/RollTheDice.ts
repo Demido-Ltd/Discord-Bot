@@ -17,6 +17,7 @@ import {
  */
 export default class RollTheDice extends Command {
     /**
+     * @constructor
      * Creates an instance of the RollTheDice command.
      * @param {CustomClient} client - The custom client instance.
      */

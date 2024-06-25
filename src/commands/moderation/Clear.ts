@@ -19,6 +19,7 @@ import {
  */
 export default class Clear extends Command {
     /**
+     * @constructor
      * Creates an instance of the Clear command.
      * @param {CustomClient} client - The custom client instance.
      */
@@ -86,7 +87,7 @@ export default class Clear extends Command {
             // Filter messages by target user if specified.
             const filteredMessages = target ? messages.filter(message => message.author.id == target.id) : messages;
 
-            let deletedMessagesAmount = 0;
+            let deletedMessagesAmount: number;
             // Bulk delete the filtered messages.
             deletedMessagesAmount = (await channel.bulkDelete(Array.from(filteredMessages.keys()).slice(0, amount), true)).size;
             // If there are no messages to be deleted, notify the user.

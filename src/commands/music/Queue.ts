@@ -18,6 +18,7 @@ import MusicQueueManager from "../../utilities/MusicQueueManager";
 export default class Queue extends Command {
 
     /**
+     * @constructor
      * Creates an instance of the Queue command.
      * @param {CustomClient} client - The custom client instance
      */

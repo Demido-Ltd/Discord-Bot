@@ -5,8 +5,19 @@ import EmbedMessagesArchive from "../../utilities/EmbedMessagesArchive";
 import ButtonsArchive from "../../utilities/ButtonsArchive";
 import MusicQueueManager from "../../utilities/MusicQueueManager";
 
-export default class Finish extends Event {
+/**
+ * Event that gets triggered whenever a song has finished playing.
+ * @extends Event
+ * @author Stefan Cucoranu <elpideus@gmail.com>
+ * @version 1.0
+ */
+export default class FinishSong extends Event {
 
+    /**
+     * @constructor
+     * Initializes the {@link FinishSong} class.
+     * @param {CustomClient} client The bot client
+     */
     constructor(client: CustomClient) {
         super(client, {
             name: Events.ClientReady,
@@ -17,7 +28,7 @@ export default class Finish extends Event {
 
     async Execute() {
 
-        this.client.distubeAddon.on("finishSong", async (queue, song) => {
+        this.client.distubeAddon.on("finishSong", async (queue) => {
             const voiceChannel = queue.voiceChannel;
             if (voiceChannel) {
 

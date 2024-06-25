@@ -56,6 +56,7 @@ export default class Command implements ICommand{
 
     /**
      * Creates an instance of {@link Command}.
+     * @constructor
      * @param {CustomClient} client The custom client instance.
      * @param {ICommandOptions} options The options to initialize the command.
      */

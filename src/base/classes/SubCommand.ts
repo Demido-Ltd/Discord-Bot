@@ -23,6 +23,7 @@ export default class SubCommand implements ISubCommand {
     name: string;
 
     /**
+     * @constructor
      * Creates a new SubCommand instance.
      * @param {CustomClient} client The CustomClient instance.
      * @param {ISubCommandOptions} options Options for configuring the sub-command.

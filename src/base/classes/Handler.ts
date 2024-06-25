@@ -21,7 +21,9 @@ export default class Handler implements IHandler {
      */
     client: CustomClient;
 
-    /** @param {CustomClient} client The {@link CustomClient} instance to handle events and commands for. */
+    /**
+     * @constructor
+     * @param {CustomClient} client The {@link CustomClient} instance to handle events and commands for. */
     constructor(client: CustomClient) {
         this.client = client;
     }

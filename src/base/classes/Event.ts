@@ -36,6 +36,7 @@ export default class Event implements IEvent {
     once: boolean;
 
     /**
+     * @constructor
      * Creates an instance of {@link Event}.
      * @param {CustomClient} client The CustomClient instance.
      * @param {IEventOptions} options The options for configuring the event.

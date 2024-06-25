@@ -17,6 +17,7 @@ import EmbedMessagesArchive from "../../utilities/EmbedMessagesArchive";
 export default class Pause extends Command {
 
     /**
+     * @constructor
      * The constructor for the Pause class.
      * @param {CustomClient} client - The bot client instance.
      */

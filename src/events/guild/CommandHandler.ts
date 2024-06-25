@@ -11,13 +11,14 @@ import Command from "../../base/classes/Command";
  */
 export default class CommandHandler extends Event {
     /**
+     * @constructor
      * Creates an instance of the CommandHandler event.
      * @param {CustomClient} client - The custom client instance.
      */
     constructor(client: CustomClient) {
         super(client, {
             name: Events.InteractionCreate,
-            description: "Command Handler Event",
+            description: "Handles commands, and gets triggered whenever the bot receives a command.",
             once: false,
         });
     }

@@ -17,7 +17,8 @@ import {
 export default class Play extends Command {
 
     /**
-     * Constructor for the Play class.
+     * @constructor
+     * Constructor for the PlaySong class.
      * @param {CustomClient} client - The custom client instance.
      */
     constructor(client: CustomClient) {

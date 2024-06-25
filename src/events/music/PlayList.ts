@@ -3,17 +3,22 @@ import CustomClient from "../../base/classes/CustomClient";
 import {Events} from "discord.js";
 import ytdl from "ytdl-core";
 import {Song} from "distube";
-import ButtonsArchive from "../../utilities/ButtonsArchive";
 import EmbedMessagesArchive from "../../utilities/EmbedMessagesArchive";
 import MusicQueueManager from "../../utilities/MusicQueueManager";
 
+/**
+ * Handles a playlist play request to the bot.
+ * @extends Event
+ * @author Stefan Cucoranu <elpideus@gmail.com>
+ * @version 1.0
+ */
 export default class PlayList extends Event {
 
-    static messageEmbed = async (song:Song) => {
-        const songInfo = await ytdl.getInfo(song.id!);
-        const songUploadDate = new Date(songInfo.videoDetails.uploadDate);
-    }
-
+    /**
+     * @constructor
+     * Initializes the {@link PlayList} class.
+     * @param {CustomClient} client The bot client
+     */
     constructor(client: CustomClient) {
         super(client, {
             name: Events.ClientReady,
@@ -24,7 +29,7 @@ export default class PlayList extends Event {
 
     async Execute() {
 
-        this.client.distubeAddon.on("addList", async (queue, playlist) => {
+        this.client.distubeAddon.on("addList", async (queue) => {
 
             const latestMusicQueueMessageData = EmbedMessagesArchive.queue(
                 queue,
