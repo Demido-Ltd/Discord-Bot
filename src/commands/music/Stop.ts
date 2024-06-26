@@ -24,7 +24,7 @@ export default class Stop extends Command {
         super(client, {
             client: client,
             name: 'stop',
-            description: '🎵 | Stops the music and deletes the queue.',
+            description: '⏹️ | Stops the music and deletes the queue.',
             category: Category.Music,
             default_member_permissions: PermissionsBitField.Flags.Speak,
             dm_permission: false,

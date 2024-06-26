@@ -25,7 +25,7 @@ export default class Pause extends Command {
         super(client, {
             client: client,
             name: 'pause',
-            description: '🎵 | Pauses the current queue.',
+            description: '⏸️ | Pauses the current queue.',
             category: Category.Music,
             default_member_permissions: PermissionsBitField.Flags.Speak,
             dm_permission: false,

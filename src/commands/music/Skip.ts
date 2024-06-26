@@ -24,7 +24,7 @@ export default class Skip extends Command {
         super(client, {
             client: client,
             name: 'skip',
-            description: '🎵 | Skips the current song.',
+            description: '⏩ | Skips the current song.',
             category: Category.Music,
             default_member_permissions: PermissionsBitField.Flags.Speak,
             dm_permission: false,

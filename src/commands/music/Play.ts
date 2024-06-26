@@ -25,7 +25,7 @@ export default class Play extends Command {
         super(client, {
             client: client,
             name: 'play',
-            description: '🎵 | Plays a song of your choice.',
+            description: '▶️ | Plays a song of your choice.',
             category: Category.Music,
             default_member_permissions: PermissionsBitField.Flags.Speak,
             dm_permission: false,
@@ -35,6 +35,7 @@ export default class Play extends Command {
                 name: "song",
                 description: "The song you want to be played.",
                 type: ApplicationCommandOptionType.String,
+                required: true
             }]
         });
     }

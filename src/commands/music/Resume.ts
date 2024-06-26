@@ -25,7 +25,7 @@ export default class Resume extends Command {
         super(client, {
             client: client,
             name: 'resume',
-            description: '🎵 | Resumes the current queue.',
+            description: '▶️ | Resumes the current queue.',
             category: Category.Music,
             default_member_permissions: PermissionsBitField.Flags.Speak,
             dm_permission: false,

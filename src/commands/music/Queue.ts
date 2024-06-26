@@ -26,7 +26,7 @@ export default class Queue extends Command {
         super(client, {
             client: client,
             name: 'queue',
-            description: '🎵 | Shows the current queue list.',
+            description: '📝 | Shows the current queue list.',
             category: Category.Music,
             default_member_permissions: PermissionsBitField.Flags.Speak,
             dm_permission: false,
