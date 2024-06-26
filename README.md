@@ -1,4 +1,4 @@
-![Demido - Small Banner](/data/assets/branding/Demido%20-%20Small%20Banner%20w%20nb%20ns.png)
+![Demido - Small Banner](/data/assets/branding/Demido%20-%20Small%20Banner%20w%20db%20ns.png)
 
 ### Currently under development. Bugs and crashes may still happen.
 
