@@ -1,6 +1,6 @@
 <picture>
  <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Demido-Ltd/Discord-Bot/blob/main/data/assets/branding/Demido%20-%20Small%20Banner%20w%20nb%20ns.png?raw=true">
- <img alt="Demido Discord Bot banner" src="https://github.com/Demido-Ltd/Discord-Bot/blob/main/data/assets/branding/Demido%20-%20Small%20Banner%20w%20db%20ns.png?raw=true">
+ <img alt="Demido Discord Bot banner" src="https://github.com/Demido-Ltd/Discord-Bot/blob/main/data/assets/branding/Demido%20-%20Small%20Banner%20d%20nb%20ns.png?raw=true">
 </picture>
 
 ### Currently under development. Bugs and crashes may still happen.
