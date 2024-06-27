@@ -98,4 +98,6 @@ export default class CustomClient extends Client implements ICustomClient {
         this.handler.LoadCommands();
     }
 
+    // TODO: Add a help, info and settings command
+    // TODO: Add a greeting and a levelling system
 }

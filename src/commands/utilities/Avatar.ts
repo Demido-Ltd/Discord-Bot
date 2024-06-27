@@ -59,5 +59,5 @@ export default class Avatar extends Command {
             ephemeral: interaction.options.getBoolean("ephemeral") !== null && interaction.options.getBoolean("ephemeral") as boolean});
     }
 
-    //TODO: Add an upscaling option
+    //TODO: Add an upscaling option (https://www.npmjs.com/package/upscaler) or (https://www.npmjs.com/package/waifu2x)
 }
