@@ -120,7 +120,7 @@ export default class EmbedMessagesArchive {
             if (index <= 5)
                 specificSkipButtons1.addComponents(
                     new ButtonBuilder()
-                        .setCustomId(`skip_song${(page - 1) * elementsPerPage + index + 1 > 0 ? "|" + (page - 1) * elementsPerPage + index + 1 : ""}`)
+                        .setCustomId(`skip_song${(page - 1) * elementsPerPage + index + 1 > 0 ? `|${(page - 1) * elementsPerPage + index + 1}` : ""}`)
                         .setLabel(NumbersManipulation.numberToEmoji(index + 1))
                         .setStyle(ButtonStyle.Secondary),
                 );

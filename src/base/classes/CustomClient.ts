@@ -98,6 +98,7 @@ export default class CustomClient extends Client implements ICustomClient {
         this.handler.LoadCommands();
     }
 
+    // TODO: Fix music commands with voice channel checks and stuff
     // TODO: Add a help, info and settings command
     // TODO: Add a greeting and a levelling system
 }

@@ -2,7 +2,7 @@ import Command from "../../base/classes/Command";
 import CustomClient from "../../base/classes/CustomClient";
 import Category from "../../base/enums/Category";
 import {
-    ChatInputCommandInteraction,
+    ChatInputCommandInteraction, EmbedBuilder, Guild,
     PermissionsBitField,
 } from "discord.js";
 import MusicQueueManager from "../../utilities/MusicQueueManager";
@@ -37,17 +37,25 @@ export default class Skip extends Command {
     /**
      * Executes the Skip command.
      * @param {ChatInputCommandInteraction} interaction - The interaction that triggered the command.
-     * @returns {Promise<void>}
+     * @returns
      */
-    async Execute(interaction: ChatInputCommandInteraction): Promise<void> {
-        const guild = interaction.guild!;
+    async Execute(interaction: ChatInputCommandInteraction) {
+        const guild: Guild | undefined = this.client.guilds.cache.get(interaction.guild!.id);
+        const userVoiceChannel = guild!.members.cache.get(interaction.member!.user.id)!.voice.channel;
+
+        if (userVoiceChannel !== guild!.members.cache.get(this.client.user!.id)!.voice.channel) {
+            return interaction.reply({embeds: [new EmbedBuilder()
+                    .setColor("Red")
+                    .setDescription(`❌ | You need to be in ${guild!.members.cache.get(this.client.user!.id)!.voice.channel} if you want to skip this song.`)
+                ], ephemeral: true});
+        }
         await interaction.deferReply();
         await interaction.deleteReply();
-        if (this.client.distubeAddon.getQueue(guild.id)!.songs.length <= 1) {
+        if (this.client.distubeAddon.getQueue(guild!.id)!.songs.length <= 1) {
             new MusicQueueManager(this.client, interaction.guild!.id).delete();
-            return await this.client.distubeAddon.stop(guild.id);
+            return await this.client.distubeAddon.stop(guild!.id);
         }
-        await this.client.distubeAddon.skip(guild);
+        await this.client.distubeAddon.skip(guild!);
         await new MusicQueueManager(this.client, interaction.guild!.id).update();
     }
 }

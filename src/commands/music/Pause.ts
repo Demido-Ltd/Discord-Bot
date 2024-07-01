@@ -2,7 +2,7 @@ import Command from "../../base/classes/Command";
 import CustomClient from "../../base/classes/CustomClient";
 import Category from "../../base/enums/Category";
 import {
-    ChatInputCommandInteraction,
+    ChatInputCommandInteraction, EmbedBuilder, Guild,
     PermissionsBitField,
 } from "discord.js";
 import ButtonsArchive from "../../utilities/ButtonsArchive";
@@ -40,6 +40,15 @@ export default class Pause extends Command {
      * @param {ChatInputCommandInteraction} interaction - The interaction object representing the command interaction
      */
     async Execute(interaction: ChatInputCommandInteraction) {
+        const guild: Guild | undefined = this.client.guilds.cache.get(interaction.guild!.id);
+        const userVoiceChannel = guild!.members.cache.get(interaction.member!.user.id)!.voice.channel;
+
+        if (userVoiceChannel !== guild!.members.cache.get(this.client.user!.id)!.voice.channel) {
+            return interaction.reply({embeds: [new EmbedBuilder()
+                    .setColor("Red")
+                    .setDescription(`❌ | You need to be in ${guild!.members.cache.get(this.client.user!.id)!.voice.channel} if you want to pause the music.`)
+                ], ephemeral: true});
+        }
         await this.client.nowPlayingMessages[interaction.guild!.id]!.edit({
             embeds: [await EmbedMessagesArchive.musicPlayerEmbed(this.client.distubeAddon.getQueue(interaction.guild!.id)!.songs[0], true, interaction)],
             components: ButtonsArchive.musicPlayerControls(true, this.client.distubeAddon.getQueue(interaction.guild!.id)!.songs[0])}

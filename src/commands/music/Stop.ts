@@ -2,7 +2,7 @@ import Command from "../../base/classes/Command";
 import CustomClient from "../../base/classes/CustomClient";
 import Category from "../../base/enums/Category";
 import {
-    ChatInputCommandInteraction,
+    ChatInputCommandInteraction, EmbedBuilder, Guild,
     PermissionsBitField,
 } from "discord.js";
 import MusicQueueManager from "../../utilities/MusicQueueManager";
@@ -37,9 +37,18 @@ export default class Stop extends Command {
     /**
      * Executes the stop command to halt music playback, clear queue, and clean up related messages.
      * @param {ChatInputCommandInteraction} interaction - The interaction object representing the command invocation.
-     * @returns {Promise<void>}
+     * @returns
      */
     async Execute(interaction: ChatInputCommandInteraction) {
+        const guild: Guild | undefined = this.client.guilds.cache.get(interaction.guild!.id);
+        const userVoiceChannel = guild!.members.cache.get(interaction.member!.user.id)!.voice.channel;
+
+        if (userVoiceChannel !== guild!.members.cache.get(this.client.user!.id)!.voice.channel) {
+            return interaction.reply({embeds: [new EmbedBuilder()
+                    .setColor("Red")
+                    .setDescription(`❌ | You need to be in ${guild!.members.cache.get(this.client.user!.id)!.voice.channel} if you want to stop the music.`)
+                ], ephemeral: true});
+        }
         await this.client.distubeAddon.stop(interaction.guild!);
         await interaction.deferReply();
         await interaction.deleteReply();

@@ -9,6 +9,10 @@
 
 Demido is a simple yet feature-rich, constantly evolving Discord bot that enhances your server with music playback and much more.
 
+The project was born out of boredom and pure passion for programming. We tried to make the bot that we always wanted to see on the platform.
+As such this project is more of a fun experiment than a serious piece of software. We tried to put together every feature that we 
+felt like we would be using sooner or later.
+
 ## 📋 Features 
 
  * 🎧 **Music Playback**: Play your favorite tunes directly in your Discord server. Supports various sources, including SoundCloud, Deezer and Spotify.

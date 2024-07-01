@@ -4,7 +4,7 @@ import Category from "../../base/enums/Category";
 import {
     ApplicationCommandOptionType,
     ChatInputCommandInteraction,
-    EmbedBuilder,
+    EmbedBuilder, Guild,
     PermissionsBitField,
 } from "discord.js";
 
@@ -45,13 +45,20 @@ export default class Play extends Command {
      * @param {ChatInputCommandInteraction} interaction - The interaction object from discord.js
      */
     async Execute(interaction: ChatInputCommandInteraction) {
+        const guild: Guild | undefined = this.client.guilds.cache.get(interaction.guild!.id);
 
-        await interaction.deferReply();
-        const userVoiceChannel = interaction.client.guilds.cache.get(interaction.guild!.id)!.members.cache.get(interaction.member!.user.id)!.voice.channel;
+        const userVoiceChannel = guild!.members.cache.get(interaction.member!.user.id)!.voice.channel;
         if (!userVoiceChannel) return interaction.reply({embeds: [new EmbedBuilder()
                 .setColor("Red")
                 .setDescription("❌ | You must be in a voice channel if you want to listen to music.")
             ], ephemeral: true});
+        if (userVoiceChannel !== guild!.members.cache.get(this.client.user!.id)!.voice.channel) {
+            return interaction.reply({embeds: [new EmbedBuilder()
+                    .setColor("Red")
+                    .setDescription(`❌ | Music is already playing in ${guild!.members.cache.get(this.client.user!.id)!.voice.channel}.`)
+                ], ephemeral: true});
+        }
+        await interaction.deferReply();
         // @ts-ignore
         await this.client.distubeAddon.play(userVoiceChannel, interaction.options.getString("song")!, {textChannel: interaction.channel, member: interaction.member});
         await interaction.deleteReply();

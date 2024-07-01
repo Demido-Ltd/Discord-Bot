@@ -1,4 +1,4 @@
-import {ButtonInteraction} from "discord.js";
+import {ButtonInteraction, EmbedBuilder, Guild} from "discord.js";
 import CustomClient from "../base/classes/CustomClient";
 import MusicQueueManager from "../utilities/MusicQueueManager";
 
@@ -14,6 +14,15 @@ export default async function skip_song (client: CustomClient, interaction: Butt
     const guildId = interaction.guild!.id;
     const songs = opts[0];
     await interaction.deferUpdate();
+    const guild: Guild | undefined = client.guilds.cache.get(interaction.guild!.id);
+    const userVoiceChannel = guild!.members.cache.get(interaction.member!.user.id)!.voice.channel;
+
+    if (userVoiceChannel !== guild!.members.cache.get(client.user!.id)!.voice.channel) {
+        return interaction.reply({embeds: [new EmbedBuilder()
+                .setColor("Red")
+                .setDescription(`❌ | You need to be in ${guild!.members.cache.get(client.user!.id)!.voice.channel} if you want to skip the track.`)
+            ], ephemeral: true});
+    }
 
     const queueLength = client.distubeAddon.getQueue(guildId)!.songs.length;
     if (queueLength <= 1 || (songs && songs >= queueLength)) {

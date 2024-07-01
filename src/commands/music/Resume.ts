@@ -2,7 +2,7 @@ import Command from "../../base/classes/Command";
 import CustomClient from "../../base/classes/CustomClient";
 import Category from "../../base/enums/Category";
 import {
-    ChatInputCommandInteraction,
+    ChatInputCommandInteraction, EmbedBuilder, Guild,
     PermissionsBitField,
 } from "discord.js";
 import EmbedMessagesArchive from "../../utilities/EmbedMessagesArchive";
@@ -38,9 +38,18 @@ export default class Resume extends Command {
     /**
      * Executes the Resume command to resume the current music queue.
      * @param {ChatInputCommandInteraction} interaction - The command interaction.
-     * @returns {Promise<void>}
+     * @returns
      */
-    async Execute(interaction: ChatInputCommandInteraction): Promise<void> {
+    async Execute(interaction: ChatInputCommandInteraction) {
+        const guild: Guild | undefined = this.client.guilds.cache.get(interaction.guild!.id);
+        const userVoiceChannel = guild!.members.cache.get(interaction.member!.user.id)!.voice.channel;
+
+        if (userVoiceChannel !== guild!.members.cache.get(this.client.user!.id)!.voice.channel) {
+            return interaction.reply({embeds: [new EmbedBuilder()
+                    .setColor("Red")
+                    .setDescription(`❌ | You need to be in ${guild!.members.cache.get(this.client.user!.id)!.voice.channel} if you want to resume the music playback.`)
+                ], ephemeral: true});
+        }
         await this.client.nowPlayingMessages[interaction.guild!.id]!.edit({
             embeds: [await EmbedMessagesArchive.musicPlayerEmbed(this.client.distubeAddon.getQueue(interaction.guild!)!.songs[0])],
             components: ButtonsArchive.musicPlayerControls(false, this.client.distubeAddon.getQueue(interaction.guild!.id)!.songs[0])});

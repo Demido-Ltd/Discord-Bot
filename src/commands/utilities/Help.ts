@@ -11,7 +11,7 @@ import {
 } from "discord.js";
 
 /**
- *
+ * Represents the "/help" command
  * @extends Command
  * @author Stefan Cucoranu <elpideus@gmail.com>
  * @version 1.0
@@ -26,7 +26,7 @@ export default class Help extends Command {
         super(client, {
             client: client,
             name: 'help',
-            description: 'Just help',
+            description: '❓ Do you need any?',
             category: Category.Games,
             default_member_permissions: PermissionsBitField.Flags.AttachFiles,
             dm_permission: false,
@@ -42,11 +42,10 @@ export default class Help extends Command {
      */
     async Execute(interaction: ChatInputCommandInteraction) {
         await interaction.reply({embeds: [new EmbedBuilder()
-                .setTitle("Help")
+                .setTitle("❓ Help")
                 .setDescription("Demido is a really simple bot. You can see all the commands and what they do by just typing \"/\" in chat.\n\nYou can check all the commands, what they do and how to use them on [the GitHub page](https://github.com/Demido-Ltd/Discord-Bot#how-to-use).")
             ], components: [new ActionRowBuilder<ButtonBuilder>().addComponents(
                 new ButtonBuilder().setURL("https://github.com/Demido-Ltd/Discord-Bot#how-to-use").setLabel("How to use").setStyle(ButtonStyle.Link)
             )]});
-        //TODO: Create the "How to Use" section in the Readme file.
     }
 }
