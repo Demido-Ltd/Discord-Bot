@@ -1,0 +1,29 @@
+{
+  "name": "demido",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "start": "bun ./src/index.ts"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.17.0",
+    "@distube/spotify": "^2.0.2",
+    "@distube/youtube": "^1.0.4",
+    "@distube/yt-dlp": "^2.0.1",
+    "@distube/ytdl-core": "^4.15.1",
+    "bufferutil": "^4.0.8",
+    "discord.js": "^14.16.3",
+    "distube": "^5.0.4",
+    "dotenv": "^16.4.5",
+    "opusscript": "^0.1.1",
+    "sodium": "^3.0.2",
+    "sodium-native": "^4.2.1",
+    "zlib-sync": "^0.1.9"
+  }
+}
