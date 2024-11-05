@@ -18,17 +18,18 @@ export class DiscordBot {
     static client: Demido | null = null; // Store the client instance
 
     static run = async () => {
-        this.client = new Client({
+        const client = new Client({
             intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
         }) as Demido;
 
-        this.client.commands = new Map<string, any>();
-        this.client.buttons = new Map<string, any>();
+        // this.client.once("ready", async () => new CommandsHandler(this.client!));
 
-        this.client.once("ready", async () => new CommandsHandler(this.client!));
-
-        return this.client.login(process.env.DISCORD_BOT_TOKEN).then(async () => {
-            return `${this.client!.user!.displayName} ready and at your service!`;
+        return client.login(process.env.DISCORD_BOT_TOKEN).then(async () => {
+            console.log(`${client!.user!.displayName} ready and at your service!`);
+            this.client = client
+            this.client.commands = new Map<string, any>();
+            this.client.buttons = new Map<string, any>();
+            return this.client;
         });
     }
 
