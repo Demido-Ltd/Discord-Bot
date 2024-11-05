@@ -1,6 +1,5 @@
 import "dotenv/config";
 import { Client, GatewayIntentBits, type ClientOptions } from "discord.js";
-import CommandsHandler from "./handlers/CommandsHandler.ts";
 import chalk from "chalk";
 
 export class Demido extends Client {
@@ -19,7 +18,7 @@ export class DiscordBot {
 
     static run = async () => {
         const client = new Client({
-            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
+            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
         }) as Demido;
 
         // this.client.once("ready", async () => new CommandsHandler(this.client!));
