@@ -23,6 +23,7 @@ export default class CommandsHandler {
         const loadCommandsFromDirectory = async (directory: string) => {
             const files = fs.readdirSync(directory);
             for (const file of files) {
+                if (!process.env.MUSIC && file === "music") continue;
                 const filePath = path.join(directory, file);
                 const stat = fs.statSync(filePath);
                 if (stat.isDirectory()) await loadCommandsFromDirectory(filePath);
