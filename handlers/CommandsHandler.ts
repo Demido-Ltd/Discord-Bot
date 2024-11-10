@@ -27,7 +27,7 @@ export default class CommandsHandler {
                 const filePath = path.join(directory, file);
                 const stat = fs.statSync(filePath);
                 if (stat.isDirectory()) await loadCommandsFromDirectory(filePath);
-                else if (file.endsWith(".ts") || file.endsWith(".ts")) {
+                else if (file.endsWith(".ts")) {
                     const command = (await import(filePath));
                     if (command.data) {
                         commands.push(command.data.toJSON());

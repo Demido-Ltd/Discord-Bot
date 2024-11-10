@@ -41,10 +41,12 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     const member = interaction.member as GuildMember;
     if (!member || !member.voice.channel) {
         return interaction.reply({ embeds: [EmbedsArchive.genericErrorMessage({
-            title: "You are not in a Voice Channel",
-            description: "Join a voice channel to play music.",
-            emoji: "⚠️"
-        })] });
+                title: "You are not in a Voice Channel",
+                description: "Join a voice channel to play music.",
+                emoji: "⚠️",
+                reportToDevs: false,
+                consoleLog: false
+            })] });
     }
 
     const voiceChannel = member.voice.channel as VoiceBasedChannel;

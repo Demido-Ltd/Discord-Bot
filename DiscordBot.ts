@@ -8,6 +8,7 @@ import {YouTubePlugin} from "@distube/youtube";
 import SpotifyPlugin from "@distube/spotify";
 import SoundCloudPlugin from "@distube/soundcloud";
 import AppleMusicPlugin from "distube-apple-music";
+import EventsHandler from "./handlers/EventsHandler.ts";
 
 export class Demido extends Client {
     commands: Map<string, any>;
@@ -27,7 +28,13 @@ export class DiscordBot {
 
     static run = async () => {
         const client = new Client({
-            intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.MessageContent]
+            intents: [
+                GatewayIntentBits.Guilds,
+                GatewayIntentBits.GuildMembers,
+                GatewayIntentBits.GuildMessages,
+                GatewayIntentBits.GuildVoiceStates,
+                GatewayIntentBits.MessageContent
+            ]
         }) as Demido;
 
         if (process.env.MUSIC)
@@ -365,7 +372,10 @@ export class DiscordBot {
             ]
         });
 
-        client.once("ready", async () => new CommandsHandler(this.client!));
+        client.once("ready", async () => {
+            new CommandsHandler(this.client!);
+            new EventsHandler(this.client!);
+        });
 
         return client.login(process.env.DISCORD_BOT_TOKEN).then(async () => {
             console.log(`${client!.user!.displayName} ready and at your service!`);

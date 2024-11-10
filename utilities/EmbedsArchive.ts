@@ -1,5 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import shell from "../../index.ts";
+import type {Song} from "distube";
 
 export default class EmbedsArchive {
 
@@ -34,7 +35,7 @@ export default class EmbedsArchive {
      */
     public static genericErrorMessage = ({title, description, footer = null, error = null, useEmojis = true, emoji = "❗ ", reportToDevs = true, consoleLog = true}: {
         title: string; description: string; footer?: string | null; error?: any | null; useEmojis?: boolean; emoji?: string; reportToDevs?: boolean; consoleLog?: boolean; }): EmbedBuilder => {
-        const embed = new EmbedBuilder().setColor(0xf0473e);
+        const embed = new EmbedBuilder().setColor(parseInt(process.env.DISCORD_ERROR_COLOR || "0xf0473e", 16));
 
         if (title) embed.setTitle((emoji && useEmojis ? emoji + " " : "") + title);
         if (description) embed.setDescription(description);
@@ -47,4 +48,8 @@ export default class EmbedsArchive {
 
         return embed;
     };
+
+    public static musicPlayer = (song: Song, playing: boolean = true) => {
+        // TODO: Add music player embed with buttons and everything
+    }
 }
