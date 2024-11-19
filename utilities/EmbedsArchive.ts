@@ -1,6 +1,7 @@
-import { EmbedBuilder } from "discord.js";
+import {AttachmentBuilder, Embed, EmbedBuilder} from "discord.js";
 import shell from "../../index.ts";
 import type {Song} from "distube";
+import path from "node:path";
 
 export default class EmbedsArchive {
 
@@ -49,7 +50,51 @@ export default class EmbedsArchive {
         return embed;
     };
 
-    public static musicPlayer = (song: Song, playing: boolean = true) => {
-        // TODO: Add music player embed with buttons and everything
+    public static musicPlayer = (song: Song): {embed: EmbedBuilder, attachments: AttachmentBuilder[]} => {
+        let data;
+        if (!song.thumbnail) data = {
+            embed: new EmbedBuilder()
+                .setThumbnail("attachment://no_thumbnail_available.png"),
+            attachments: [new AttachmentBuilder(path.join(__dirname, "../assets/images/no_thumbnail_available.png"), {name: "no_thumbnail_available.png"})]
+        }; else {
+            data = {
+                embed: new EmbedBuilder()
+                    .setThumbnail(song.thumbnail),
+                attachments: []
+            };
+        }
+
+        const formatViews = (views: number | null | undefined): string => {
+            if (!views || typeof views === "undefined") return "unknown";
+            if (views >= 1_000_000) return (views / 1_000_000).toFixed(1).replace(/\.0$/, '') + 'M';
+            else if (views >= 1_000) return (views / 1_000).toFixed(1).replace(/\.0$/, '') + 'K';
+            return views.toString();
+        }
+
+        const sourceParser = (source: string) => {
+            switch (source.toLowerCase()) {
+                case "youtube":
+                    return "YouTube";
+                case "spotify":
+                    return "Spotify";
+                case "soundcloud":
+                    return "SoundCloud";
+                default:
+                    return source;
+            }
+        }
+
+        data.embed
+            .setTitle(`[**Now Playing**] ${song.name}`)
+            .addFields(
+                {name: "By", value: `[${song.uploader.name}](${song.uploader.url})`, inline: true},
+                {name: "Duration", value: song.formattedDuration, inline: true},
+                {name: "\u200B", value: "\u200B", inline: true},
+                {name: "Views", value: formatViews(song.views), inline: true},
+                {name: "Link", value: `[${sourceParser(song.source)}](${song.url})`, inline: true},
+                {name: "\u200B", value: "\u200B", inline: true}
+        )
+        return data;
     }
+
 }

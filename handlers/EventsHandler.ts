@@ -25,7 +25,7 @@ export default class EventsHandler {
                 else if (file.endsWith(".ts")) {
                     const event = (await import(filePath));
                     if (!event.default || !event.default.execute || !event.default.type) continue;
-                    const handler = async (...args: any[]) => await event.default.execute(...args);
+                    const handler = async (...args: any[]) => await event.default.execute(this.client, ...args);
                     if (process.env.MUSIC && filePath.includes("music") && this.client.distube)  {
                         this.client.distube.on(event.default.type, handler);
                         continue;
