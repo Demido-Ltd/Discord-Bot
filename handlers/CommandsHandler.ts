@@ -23,7 +23,7 @@ export default class CommandsHandler {
         const loadCommandsFromDirectory = async (directory: string) => {
             const files = fs.readdirSync(directory);
             for (const file of files) {
-                if (!process.env.MUSIC && file === "music") continue;
+                if (file === "music" && !process.env.MUSIC) continue;
                 const filePath = path.join(directory, file);
                 const stat = fs.statSync(filePath);
                 if (stat.isDirectory()) await loadCommandsFromDirectory(filePath);
@@ -37,7 +37,7 @@ export default class CommandsHandler {
             }
         }
 
-        await loadCommandsFromDirectory(commandsDir)
+        await loadCommandsFromDirectory(commandsDir);
 
         try {
             await new REST({version: "10"}).setToken(process.env.DISCORD_BOT_TOKEN!)
@@ -53,7 +53,7 @@ export default class CommandsHandler {
             await command.execute(interaction);
         } catch (error) {
             console.error(`Error executing ${interaction.commandName}:`, error);
-            await interaction.reply({ content: 'Error executing command!', ephemeral: true });
+            await interaction.reply({ content: 'Error executing command!', ephemeral: true }); // TODO: Update error with embed
         }
     }
 

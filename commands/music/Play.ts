@@ -18,6 +18,7 @@ export const data = new SlashCommandBuilder()
     );
 
 export async function execute(interaction: ChatInputCommandInteraction) {
+    await interaction.deferReply();
     const query = interaction.options.getString("query", true);
 
     if (query.length < 6) {
@@ -56,6 +57,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
             textChannel: interaction.channel as GuildTextBasedChannel,
             member: member,
         });
+        return interaction.deleteReply();
     } catch (error) {
         return interaction.reply({ embeds: [EmbedsArchive.genericErrorMessage({
             title: "Something went wrong",

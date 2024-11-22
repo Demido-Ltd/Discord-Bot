@@ -1,5 +1,6 @@
 import {ActionRowBuilder, ButtonBuilder, ButtonStyle} from "discord.js";
 
+// TODO: Add documentation
 export default class ButtonsArchive {
 
     public static player(playing: boolean = true, repeating: boolean = false) {
@@ -9,9 +10,9 @@ export default class ButtonsArchive {
             .setStyle(ButtonStyle.Danger);
 
         const play_pause = new ButtonBuilder()
-            .setCustomId(playing ? "music.pause" : "music.play")
-            .setLabel("⏸️")
-            .setStyle(ButtonStyle.Secondary);
+            .setCustomId(playing ? "music.pause" : "music.resume")
+            .setLabel(playing ? "⏸️" : "▶️")
+            .setStyle(playing ? ButtonStyle.Secondary : ButtonStyle.Success);
 
         const next = new ButtonBuilder()
             .setCustomId("music.next")
@@ -28,7 +29,7 @@ export default class ButtonsArchive {
             .setLabel("📃")
             .setStyle(ButtonStyle.Secondary);
 
-        return [new ActionRowBuilder().addComponents(stop, play_pause, next, repeat, queue)];
+        return [new ActionRowBuilder<ButtonBuilder>().addComponents(stop, play_pause, next, repeat, queue)];
 
         // TODO: Make the buttons work
 

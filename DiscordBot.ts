@@ -9,6 +9,7 @@ import SpotifyPlugin from "@distube/spotify";
 import SoundCloudPlugin from "@distube/soundcloud";
 import AppleMusicPlugin from "distube-apple-music";
 import EventsHandler from "./handlers/EventsHandler.ts";
+import ButtonsHandler from "./handlers/ButtonsHandler.ts";
 
 export class Demido extends Client {
     commands: Map<string, any>;
@@ -385,6 +386,7 @@ export class DiscordBot {
 
         client.once("ready", async () => {
             new CommandsHandler(this.client!);
+            new ButtonsHandler(this.client!)
             new EventsHandler(this.client!);
         });
 
@@ -418,3 +420,5 @@ export class DiscordBot {
         }
     }
 }
+
+// TODO: Add a button handler
