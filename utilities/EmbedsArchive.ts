@@ -34,7 +34,7 @@ export default class EmbedsArchive {
      *   consoleLog: false,
      * });
      */
-    public static genericErrorMessage = ({title, description, footer = null, error = null, useEmojis = true, emoji = "❗ ", reportToDevs = true, consoleLog = true}: {
+    public static genericErrorMessage = ({title, description, footer = null, error = null, useEmojis = true, emoji = "❗", reportToDevs = true, consoleLog = true}: {
         title: string; description: string; footer?: string | null; error?: any | null; useEmojis?: boolean; emoji?: string; reportToDevs?: boolean; consoleLog?: boolean; }): EmbedBuilder => {
         const embed = new EmbedBuilder().setColor(parseInt(process.env.DISCORD_ERROR_COLOR || "0xf0473e", 16));
 
@@ -46,6 +46,28 @@ export default class EmbedsArchive {
             console.error(title + "\n", description + (error ? "\n" : ""), error ?? "");
             shell.promptUser().then();
         }
+
+        return embed;
+    };
+
+    public static genericSuccessMessage = ({title, description, footer = null, error = null, useEmojis = true, emoji = "✅"}: {
+        title: string; description: string; footer?: string | null; error?: any | null; useEmojis?: boolean; emoji?: string; reportToDevs?: boolean; consoleLog?: boolean; }): EmbedBuilder => {
+        const embed = new EmbedBuilder().setColor(parseInt(process.env.DISCORD_SUCCESS_COLOR || "0x20461f", 16));
+
+        if (title) embed.setTitle((emoji && useEmojis ? emoji + " " : "") + title);
+        if (description) embed.setDescription(description);
+        if (footer) embed.setFooter({ text: footer });
+
+        return embed;
+    };
+
+    public static genericProcessMessage = ({title, description, footer = null, error = null, useEmojis = true, emoji = "⌛"}: {
+        title: string; description: string; footer?: string | null; error?: any | null; useEmojis?: boolean; emoji?: string; reportToDevs?: boolean; consoleLog?: boolean; }): EmbedBuilder => {
+        const embed = new EmbedBuilder().setColor(parseInt(process.env.DISCORD_SUCCESS_COLOR || "0xe6d435", 16));
+
+        if (title) embed.setTitle((emoji && useEmojis ? emoji + " " : "") + title);
+        if (description) embed.setDescription(description);
+        if (footer) embed.setFooter({ text: footer });
 
         return embed;
     };

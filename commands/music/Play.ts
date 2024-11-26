@@ -7,6 +7,7 @@ import {
 } from 'discord.js';
 import type { Demido } from "../../DiscordBot.ts";
 import EmbedsArchive from "../../utilities/EmbedsArchive.ts";
+import * as repl from "node:repl";
 
 export const data = new SlashCommandBuilder()
     .setName('play')
@@ -57,11 +58,30 @@ export async function execute(interaction: ChatInputCommandInteraction) {
             textChannel: interaction.channel as GuildTextBasedChannel,
             member: member,
         });
-        return interaction.deleteReply();
+
+        const queue = client.distube.getQueue(interaction.guild!.id);
+        if (queue && queue.songs.length > 1) {
+            await interaction.editReply({
+                embeds: [EmbedsArchive.genericSuccessMessage({
+                    title: "Successfully added song to the queue.",
+                    description: "Your song has been successfully added to the queue."
+                })]
+            }).then(() => setTimeout(() => interaction.deleteReply(), 10000));
+        } else {
+            await interaction.editReply({
+                embeds: [EmbedsArchive.genericProcessMessage({
+                    title: "Preparing to play the song you requested...",
+                    description: `Your requested song is going to be played soon.\nSearched Query: \`${query}\``
+                })]
+            }).then(() => setTimeout(() => interaction.deleteReply(), 10000));
+        }
     } catch (error) {
-        return interaction.reply({ embeds: [EmbedsArchive.genericErrorMessage({
-            title: "Something went wrong",
-            description: "An error has occurred while trying to play music."
-        })] });
+        await interaction.editReply({
+            embeds: [EmbedsArchive.genericErrorMessage({
+                title: "Something went wrong",
+                description: "An error has occurred while trying to play music."
+            })]
+        });
+        console.error(`[DEMIDO] -> Error executing play:`, error);
     }
 }
