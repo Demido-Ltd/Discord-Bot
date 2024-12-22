@@ -1,7 +1,8 @@
 import {AttachmentBuilder, EmbedBuilder} from "discord.js";
 import shell from "../../index.ts";
-import type {Song} from "distube";
+import {Queue, type Song} from "distube";
 import path from "node:path";
+import Numbermoji from "./Numbermoji.ts";
 
 export default class EmbedsArchive {
 
@@ -226,5 +227,32 @@ export default class EmbedsArchive {
         )
         return data;
     }
+
+    public static queueList = (queue: Queue, page: number = 1) => {
+        const songs = queue.songs.slice(1), itemsPerPage = 5,
+            totalPages = Math.ceil(songs.length / itemsPerPage);
+
+        const startIndex = (page - 1) * itemsPerPage;
+        const pageSongs = songs.slice(startIndex, page * itemsPerPage);
+
+        return {
+            embed: new EmbedBuilder()
+                .setTitle("Songs Queue")
+                .setDescription(
+                    (() => {
+                        if (page < 1 || page > totalPages) return "Invalid page number.";
+                        return pageSongs.map((s, i) =>
+                            `${Numbermoji.emojify(i + 1)} ${s?.name && s.name.length > 69 ? s.name.slice(0, 69) + "..." : s?.name ?? "Name not available"}`
+                        ).join("\n") || "No songs available on this page.";
+                    })())
+                .setFooter({text: `There are currently ${songs.length} songs in the queue.`}),
+            page: page,
+            pageSongs: pageSongs,
+            totalPages: totalPages,
+        };
+    }
+
+
+
 
 }
