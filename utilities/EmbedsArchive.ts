@@ -228,9 +228,8 @@ export default class EmbedsArchive {
         return data;
     }
 
-    public static queueList = (queue: Queue, page: number = 1) => {
-        const songs = queue.songs.slice(1), itemsPerPage = 5,
-            totalPages = Math.ceil(songs.length / itemsPerPage);
+    public static queueList = (queue: Queue, page: number = 1, itemsPerPage: number = 5) => {
+        const songs = queue.songs.slice(1), totalPages = Math.ceil(songs.length / itemsPerPage);
 
         const startIndex = (page - 1) * itemsPerPage;
         const pageSongs = songs.slice(startIndex, page * itemsPerPage);
