@@ -92,10 +92,15 @@ export default class ButtonsArchive {
         if (totalPages > 1) buttonsActionRow.addComponents(prev, pageNumber, next);
 
         if (type === "queue")
-            buttonsActionRow.addComponents(new ButtonBuilder()
-                .setCustomId("queue.shuffle")
-                .setLabel("🔀")
-                .setStyle(ButtonStyle.Secondary),
+            buttonsActionRow.addComponents(
+                new ButtonBuilder()
+                    .setCustomId("queue.shuffle")
+                    .setLabel("🔀")
+                    .setStyle(ButtonStyle.Secondary),
+                new ButtonBuilder()
+                    .setCustomId("queue.close")
+                    .setLabel("❌")
+                    .setStyle(ButtonStyle.Secondary)
             );
 
         return buttonsActionRow;

@@ -1,6 +1,6 @@
 import { ButtonInteraction } from "discord.js";
-import ButtonsArchive from "../../utilities/ButtonsArchive.ts";
-import { CustomDisTube, type Demido } from "../../DiscordBot.ts";
+import ButtonsArchive from "../../../utilities/ButtonsArchive.ts";
+import { CustomDisTube, type Demido } from "../../../DiscordBot.ts";
 
 // TODO: Add documentation
 export const data = {

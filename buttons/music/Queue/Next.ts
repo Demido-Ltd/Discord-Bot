@@ -21,8 +21,10 @@ export const execute = async (interaction: ButtonInteraction) => {
     const paginationButtons = ButtonsArchive.pagination(newPage, queueList.totalPages);
     const songSelectionButtons = ButtonsArchive.songSelection(queueList.pageSongs, newPage);
 
-    await interaction.editReply({
+    const message = await interaction.editReply({
         embeds: [queueList.embed],
         components: [songSelectionButtons, paginationButtons]
     });
+
+    distube.nowPlayingQueueMessages.set(queue.id.toString(), message);
 };

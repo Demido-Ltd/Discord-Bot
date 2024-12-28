@@ -50,7 +50,8 @@ export class Demido extends Client {
 }
 
 /**
- * Custom extension of `DisTube` that adds the `nowPlayingMessages` Map for tracking "Now Playing" messages.
+ * Custom extension of `DisTube` that adds a `nowPlayingMessages` Map for tracking "Now Playing" messages and
+ * a `nowPlayingQueueMessages` Map for tracking "Queue" messages.
  */
 export class CustomDisTube extends DisTube {
 
@@ -58,7 +59,13 @@ export class CustomDisTube extends DisTube {
      * A Map that tracks the "Now Playing" messages for each guild.
      * @type {Map<string, Message>}
      */
-    nowPlayingMessages: Map<string, Message>;  // Define the type according to your needs
+    nowPlayingMessages: Map<string, Message>;
+
+    /**
+     * A Map that tracks the "Queue" messages for each guild.
+     * @type {Map<string, Message>}
+     */
+    nowPlayingQueueMessages: Map<string, Message>
 
     /**
      * Constructs a new `CustomDisTube` instance.
@@ -68,6 +75,7 @@ export class CustomDisTube extends DisTube {
     constructor(client: Client<boolean>, options: DisTubeOptions | undefined) {
         super(client, options);
         this.nowPlayingMessages = new Map<string, Message>();
+        this.nowPlayingQueueMessages = new Map<string, Message>();
     }
 }
 
@@ -120,6 +128,7 @@ export class DiscordBot {
                 ]
             });
             (client.distube as CustomDisTube).nowPlayingMessages = new Map<string, Message>;
+            (client.distube as CustomDisTube).nowPlayingQueueMessages = new Map<string, Message>;
         }
 
         client.once("ready", async () => {

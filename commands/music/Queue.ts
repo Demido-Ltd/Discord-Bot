@@ -9,7 +9,7 @@ export const data = new SlashCommandBuilder()
     // TODO: Add page option
 
 export async function execute(interaction: CommandInteraction) {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply();
 
     const distube = (interaction.client as Demido).distube as CustomDisTube;
     const queue = distube.getQueue(interaction.guildId!);
@@ -20,8 +20,10 @@ export async function execute(interaction: CommandInteraction) {
     const paginationButtons = ButtonsArchive.pagination(queueList.page, queueList.totalPages);
     const songSelectionButtons = ButtonsArchive.songSelection(queueList.pageSongs, queueList.page);
 
-    await interaction.followUp({
+    const message = await interaction.followUp({
         embeds: [queueList.embed],
         components: [songSelectionButtons, paginationButtons]
     });
+
+    distube.nowPlayingQueueMessages.set(queue.id.toString(), message);
 }

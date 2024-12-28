@@ -1,6 +1,6 @@
 import {ButtonInteraction} from "discord.js";
-import {type Demido} from "../../DiscordBot.ts";
-import EmbedsArchive from "../../utilities/EmbedsArchive.ts";
+import {type Demido} from "../../../DiscordBot.ts";
+import EmbedsArchive from "../../../utilities/EmbedsArchive.ts";
 
 // TODO: Add documentation
 export const data = {
